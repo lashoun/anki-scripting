@@ -8,7 +8,7 @@ from anki.storage import Collection
 # Define the path to the Anki SQLite collection
 PROFILE_HOME = os.path.expanduser("~/.local/share/Anki2/Tests")
 
-def bulk_loading_anki(deck, note_type, data_list, tags=""):
+def bulk_loading_anki(deck, note_type, data_list, field_indices=[0, 1], tags=""):
 
     # Load the anki collection
     cpath = os.path.join(PROFILE_HOME, "collection.anki2")
@@ -29,8 +29,8 @@ def bulk_loading_anki(deck, note_type, data_list, tags=""):
         note.model()['did'] = deck['id']
 
         # Set the content
-        note.fields[0] = data[0]
-        note.fields[1] = data[1]
+        for i, idx in enumerate(field_indices):
+            note.fields[idx] = data[i]
 
         m = note.model()
 
